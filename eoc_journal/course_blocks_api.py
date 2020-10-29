@@ -1,6 +1,7 @@
 """
 An XBlock that allows learners to download their activity after they finish their course.
 """
+from __future__ import unicode_literals
 
 from .base_api_client import BaseApiClient
 
@@ -16,4 +17,7 @@ class CourseBlocksApiClient(BaseApiClient):
         """
         Fetches and returns blocks from the Course API.
         """
-        return self.client.blocks.get(course_id=self.course_id, **kwargs)
+        return self.client.get(
+            self.api_url + '/blocks',
+            params=dict(course_id=self.course_id, **kwargs)
+        ).json()
